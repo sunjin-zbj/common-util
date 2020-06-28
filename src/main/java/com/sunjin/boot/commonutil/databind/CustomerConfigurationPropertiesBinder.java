@@ -24,13 +24,13 @@ public class CustomerConfigurationPropertiesBinder {
         this.applicationContext = applicationContext;
     }
 
-    public void bind(Object bean, CustomerConfigurationProperties customerConfigurationProperties) {
+    public void bind(Object bean, EnableConfigurationProperties enableConfigurationProperties) {
 
         final MutablePropertyValues propertyValues = new MutablePropertyValues();
         Environment environment = applicationContext.getEnvironment();
 
         //prefix 不能为空
-        String prefix = customerConfigurationProperties.prefix();
+        String prefix = enableConfigurationProperties.prefix();
 
         ReflectionUtils.doWithFields(bean.getClass(), new ReflectionUtils.FieldCallback() {
             @Override

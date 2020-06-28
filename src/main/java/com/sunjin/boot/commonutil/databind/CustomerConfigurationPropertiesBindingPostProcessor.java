@@ -26,19 +26,19 @@ public class CustomerConfigurationPropertiesBindingPostProcessor implements Bean
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         Class<?> beanClass = bean.getClass();
-        if(!beanClass.isAnnotationPresent(CustomerConfigurationProperties.class)){
+        if(!beanClass.isAnnotationPresent(EnableConfigurationProperties.class)){
             return bean;
         }
-        CustomerConfigurationProperties customerConfigurationProperties =
-                beanClass.getAnnotation(CustomerConfigurationProperties.class);
+        EnableConfigurationProperties enableConfigurationProperties =
+                beanClass.getAnnotation(EnableConfigurationProperties.class);
 
-        bind(bean, customerConfigurationProperties);
+        bind(bean, enableConfigurationProperties);
 
 
         return null;
     }
 
-    private void bind(Object bean,CustomerConfigurationProperties customerConfigurationProperties) {
+    private void bind(Object bean, EnableConfigurationProperties enableConfigurationProperties) {
         CustomerConfigurationPropertiesBinder binder;
         try {
             binder = applicationContext.getBean(
@@ -53,7 +53,7 @@ public class CustomerConfigurationPropertiesBindingPostProcessor implements Bean
             binder = new CustomerConfigurationPropertiesBinder(applicationContext);
         }
 
-        binder.bind(bean,customerConfigurationProperties);
+        binder.bind(bean, enableConfigurationProperties);
     }
 
 
